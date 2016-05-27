@@ -7,6 +7,6 @@ RUN tar zxvf dynamodb_local_latest
 
 EXPOSE 8000
 
-RUN mkdir db
-ENTRYPOINT ["java","-Djava.library.path=./DynamoDBLocal_lib","-jar","DynamoDBLocal.jar","-dbPath","./db"]
+RUN mkdir /data
+ENTRYPOINT ["java","-Djava.library.path=./DynamoDBLocal_lib","-jar","DynamoDBLocal.jar","-dbPath","/data"]
 
