@@ -1,20 +1,10 @@
-FROM centos:centos6
+FROM elasticsearch:latest
 MAINTAINER swfz <sawafuji.09@gmail.com>
 
-
-COPY elasticsearch.repo /etc/yum.repos.d/elasticsearch.repo
-
-RUN cat /etc/yum.repos.d/elasticsearch.repo
-RUN yum -y install java-1.8.0-openjdk-devel.x86_64 nss elasticsearch
-
-RUN /usr/share/elasticsearch/bin/plugin install analysis-kuromoji \
-                                                royrusso/elasticsearch-HQ \
-                                                polyfractal/elasticsearch-inquisitor
-
-
-#VOLUME ["/data", "/logs"]
+RUN /usr/share/elasticsearch/bin/plugin install analysis-kuromoji
+RUN /usr/share/elasticsearch/bin/plugin install royrusso/elasticsearch-HQ
+RUN /usr/share/elasticsearch/bin/plugin install polyfractal/elasticsearch-inquisitor
 
 EXPOSE 9200 9300
 
-CMD [""]
-
+CMD /etc/init.d/elasticsearch start && tail -f /dev/null
